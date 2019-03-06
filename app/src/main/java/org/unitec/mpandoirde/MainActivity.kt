@@ -4,10 +4,15 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartGestureListener
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.activity_bar_chart.*
 
@@ -49,14 +54,31 @@ class MainActivity : AppCompatActivity() {
         chart.animateY(5000);
        var data =  BarData(bardataset);
 
+
+
       // bardataset.setColors(ColorTemplate.COLORFUL_COLORS)
 
-        bardataset.setColors(Color.RED, Color.rgb(2,203,6))
+        bardataset.setColors(Color.RED, Color.rgb(2,203,6), Color.BLUE, Color.YELLOW, Color.CYAN)
         chart.setData(data);
         data.setBarWidth(0.9f)
 
         chart.setFitBars(true)
         chart.invalidate()
+
+
+
+
+        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+
+            override fun onNothingSelected() {}
+
+            override fun onValueSelected(e: Entry, h: Highlight) {
+             //   val yearWeek = (e.data as FoodSearch).week_id
+             //   Toast.makeText(baseContext, "date: $yearWeek", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext,"Valor:"+e.y, Toast.LENGTH_LONG).show()
+            }
+        })
+
     }
 
 
